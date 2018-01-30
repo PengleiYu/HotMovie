@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.penglei.hotmovie.utilities.NetUtils;
+
 import java.io.IOException;
 import java.net.URL;
 

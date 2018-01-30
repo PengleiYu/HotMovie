@@ -1,4 +1,4 @@
-package com.example.penglei.hotmovie;
+package com.example.penglei.hotmovie.utilities;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
