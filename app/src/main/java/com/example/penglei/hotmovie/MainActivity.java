@@ -7,6 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.penglei.hotmovie.utilities.JsonUtil;
 import com.example.penglei.hotmovie.utilities.NetUtils;
@@ -17,14 +20,18 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
+    private RecyclerView mMovieDataView;
+    private TextView mErrorView;
+    private ProgressBar mLoadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = findViewById(R.id.recycler_main);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mErrorView = findViewById(R.id.tv_errorView_main);
+        mLoadingView = findViewById(R.id.pb_loadingIndicator_main);
+        mMovieDataView = findViewById(R.id.recycler_main);
+        mMovieDataView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -36,18 +43,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            mRecyclerView.setAdapter(null);
+            mMovieDataView.setAdapter(null);
             loadData();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void showErrorMessage() {
+        mErrorView.setVisibility(View.VISIBLE);
+        mMovieDataView.setVisibility(View.INVISIBLE);
+    }
+
+    private void showMovieDataView() {
+        mErrorView.setVisibility(View.INVISIBLE);
+        mMovieDataView.setVisibility(View.VISIBLE);
+    }
+
     private void loadData() {
+        showMovieDataView();
         new MovieTask().execute();
     }
 
     private class MovieTask extends AsyncTask<Void, Void, String[]> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingView.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String[] doInBackground(Void... voids) {
             URL url = NetUtils.buildUrl();
@@ -63,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] s) {
             super.onPostExecute(s);
-            SimpleMovieAdapter adapter = new SimpleMovieAdapter(s);
-            mRecyclerView.setAdapter(adapter);
+            mLoadingView.setVisibility(View.INVISIBLE);
+            if (s != null) {
+                showMovieDataView();
+                SimpleMovieAdapter adapter = new SimpleMovieAdapter(s);
+                mMovieDataView.setAdapter(adapter);
+            } else showErrorMessage();
         }
     }
 }

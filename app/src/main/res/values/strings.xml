@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HotMovie</string>
+    <string name="error_message">An error has occurred.\nPlease try again by clicking REFRESH</string>
 </resources>
