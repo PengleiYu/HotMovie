@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.penglei.hotmovie.utilities.JsonUtil;
 import com.example.penglei.hotmovie.utilities.NetUtils;
@@ -19,7 +20,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
     private RecyclerView mMovieDataView;
     private TextView mErrorView;
     private ProgressBar mLoadingView;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mErrorView = findViewById(R.id.tv_errorView_main);
         mLoadingView = findViewById(R.id.pb_loadingIndicator_main);
 
-        mMovieAdapter = new MovieAdapter();
+        mMovieAdapter = new MovieAdapter(this);
 
         mMovieDataView = findViewById(R.id.recycler_main);
         mMovieDataView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
     private void loadData() {
         showMovieDataView();
         new MovieTask().execute();
+    }
+
+    @Override
+    public void onClick(String movie) {
+        Toast.makeText(this, movie, Toast.LENGTH_SHORT).show();
     }
 
     private class MovieTask extends AsyncTask<Void, Void, String[]> {

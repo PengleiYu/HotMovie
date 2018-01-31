@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 /**
  * Created by penglei on 18-1-30.
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
     private String[] mData;
+    private final MovieAdapterOnClickHandler mOnClickHandler;
 
-    public MovieAdapter() {
+    public MovieAdapter(MovieAdapterOnClickHandler onClickHandler) {
+        mOnClickHandler = onClickHandler;
     }
 
     @Override
@@ -27,13 +27,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-//        System.out.println(">>> onBindViewHolder:" + mData[position]);
         holder.mMovieTextView.setText(mData[position]);
     }
 
     @Override
     public int getItemCount() {
-        System.out.println(">>> " + Arrays.toString(mData));
         if (mData == null) return 0;
         return mData.length;
     }
@@ -43,12 +41,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
         notifyDataSetChanged();
     }
 
-    static class VH extends RecyclerView.ViewHolder {
+    interface MovieAdapterOnClickHandler {
+        void onClick(String movie);
+    }
+
+    class VH extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView mMovieTextView;
 
         public VH(View itemView) {
             super(itemView);
             mMovieTextView = itemView.findViewById(R.id.tv_movie_data);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mOnClickHandler.onClick(mData[getAdapterPosition()]);
         }
     }
 }
