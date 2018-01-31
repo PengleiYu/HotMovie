@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mMovieDataView;
     private TextView mErrorView;
     private ProgressBar mLoadingView;
+    private SimpleMovieAdapter mMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mErrorView = findViewById(R.id.tv_errorView_main);
         mLoadingView = findViewById(R.id.pb_loadingIndicator_main);
+
+        mMovieAdapter = new SimpleMovieAdapter();
+
         mMovieDataView = findViewById(R.id.recycler_main);
         mMovieDataView.setLayoutManager(new LinearLayoutManager(this));
+        mMovieDataView.setHasFixedSize(true);
+        mMovieDataView.setAdapter(mMovieAdapter);
+        loadData();
     }
 
     @Override
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            mMovieDataView.setAdapter(null);
+            mMovieAdapter.setData(null);
             loadData();
             return true;
         }
@@ -90,8 +97,7 @@ public class MainActivity extends AppCompatActivity {
             mLoadingView.setVisibility(View.INVISIBLE);
             if (s != null) {
                 showMovieDataView();
-                SimpleMovieAdapter adapter = new SimpleMovieAdapter(s);
-                mMovieDataView.setAdapter(adapter);
+                mMovieAdapter.setData(s);
             } else showErrorMessage();
         }
     }

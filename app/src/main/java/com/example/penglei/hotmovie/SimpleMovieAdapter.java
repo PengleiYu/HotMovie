@@ -1,41 +1,54 @@
 package com.example.penglei.hotmovie;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 /**
  * Created by penglei on 18-1-30.
  */
 
 public class SimpleMovieAdapter extends RecyclerView.Adapter<SimpleMovieAdapter.VH> {
-    private final String[] mData;
+    private String[] mData;
 
-    public SimpleMovieAdapter(String[] data) {
-        mData = data;
+    public SimpleMovieAdapter() {
     }
-
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new VH(new TextView(parent.getContext()));
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.movie_list_item, parent, false);
+        return new VH(view);
     }
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        TextView textView= (TextView) holder.itemView;
-        textView.setText(mData[position]);
+//        System.out.println(">>> onBindViewHolder:" + mData[position]);
+        holder.mMovieTextView.setText(mData[position]);
     }
 
     @Override
     public int getItemCount() {
+        System.out.println(">>> " + Arrays.toString(mData));
+        if (mData == null) return 0;
         return mData.length;
     }
 
+    public void setData(String[] data) {
+        mData = data;
+        notifyDataSetChanged();
+    }
+
     static class VH extends RecyclerView.ViewHolder {
+        public final TextView mMovieTextView;
+
         public VH(View itemView) {
             super(itemView);
+            mMovieTextView = itemView.findViewById(R.id.tv_movie_data);
         }
     }
 }
