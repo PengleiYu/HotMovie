@@ -1,11 +1,12 @@
 package com.example.penglei.hotmovie;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.penglei.hotmovie.utilities.JsonUtil;
 import com.example.penglei.hotmovie.utilities.NetUtils;
@@ -24,6 +25,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recycler_main);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movie, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            mRecyclerView.setAdapter(null);
+            loadData();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadData() {
         new MovieTask().execute();
     }
 
