@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mMovieDataView;
     private TextView mErrorView;
     private ProgressBar mLoadingView;
-    private SimpleMovieAdapter mMovieAdapter;
+    private MovieAdapter mMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mErrorView = findViewById(R.id.tv_errorView_main);
         mLoadingView = findViewById(R.id.pb_loadingIndicator_main);
 
-        mMovieAdapter = new SimpleMovieAdapter();
+        mMovieAdapter = new MovieAdapter();
 
         mMovieDataView = findViewById(R.id.recycler_main);
         mMovieDataView.setLayoutManager(new LinearLayoutManager(this));

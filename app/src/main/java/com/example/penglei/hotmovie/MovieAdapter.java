@@ -12,10 +12,10 @@ import java.util.Arrays;
  * Created by penglei on 18-1-30.
  */
 
-public class SimpleMovieAdapter extends RecyclerView.Adapter<SimpleMovieAdapter.VH> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
     private String[] mData;
 
-    public SimpleMovieAdapter() {
+    public MovieAdapter() {
     }
 
     @Override
