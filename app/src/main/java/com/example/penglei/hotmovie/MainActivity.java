@@ -1,8 +1,10 @@
 package com.example.penglei.hotmovie;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +22,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
+public class MainActivity extends AppCompatActivity
+        implements MovieAdapter.MovieAdapterOnClickHandler, LoaderManager.LoaderCallbacks<String[]> {
     public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
+    private static final int LOADER_ID = 1;
+
     private RecyclerView mMovieDataView;
     private TextView mErrorView;
     private ProgressBar mLoadingView;
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieDataView.setLayoutManager(new LinearLayoutManager(this));
         mMovieDataView.setHasFixedSize(true);
         mMovieDataView.setAdapter(mMovieAdapter);
-        loadData();
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -52,11 +57,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            mMovieAdapter.setData(null);
-            loadData();
+            invalidateData();
+            getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void invalidateData() {
+        mMovieAdapter.setData(null);
     }
 
     @Override
@@ -76,38 +85,48 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieDataView.setVisibility(View.VISIBLE);
     }
 
-    private void loadData() {
-        showMovieDataView();
-        new MovieTask().execute();
-    }
+    @Override
+    public Loader<String[]> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<String[]>(this) {
+            private String[] mMovieData = null;
 
-    private class MovieTask extends AsyncTask<Void, Void, String[]> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mLoadingView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String[] doInBackground(Void... voids) {
-            URL url = NetUtils.buildUrl();
-            try {
-                String response = NetUtils.getResponseFromUrl(url);
-                return JsonUtil.getSimpleMovieStringsFromJson(response);
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
+            @Override
+            protected void onStartLoading() {
+                if (mMovieData != null) deliverResult(mMovieData);
+                else {
+                    mLoadingView.setVisibility(View.VISIBLE);
+                    forceLoad();
+                }
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String[] s) {
-            super.onPostExecute(s);
-            mLoadingView.setVisibility(View.INVISIBLE);
-            if (s != null) {
-                showMovieDataView();
-                mMovieAdapter.setData(s);
-            } else showErrorMessage();
-        }
+            @Override
+            public String[] loadInBackground() {
+                URL url = NetUtils.buildUrl();
+                try {
+                    String response = NetUtils.getResponseFromUrl(url);
+                    return JsonUtil.getSimpleMovieStringsFromJson(response);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            public void deliverResult(String[] data) {
+                mMovieData = data;
+                super.deliverResult(data);
+            }
+        };
     }
+
+    @Override
+    public void onLoadFinished(Loader<String[]> loader, String[] data) {
+        mLoadingView.setVisibility(View.INVISIBLE);
+        mMovieAdapter.setData(data);
+        if (data == null) showErrorMessage();
+        else showMovieDataView();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String[]> loader) { }
 }

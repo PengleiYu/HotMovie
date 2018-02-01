@@ -1,13 +1,8 @@
 package com.example.penglei.hotmovie.utilities;
 
-import android.content.Context;
-import android.text.TextUtils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
 
 /**
  * Created by penglei on 18-1-30.
@@ -33,7 +28,6 @@ public class JsonUtil {
             date = movie.getString(MOVIE_DATE);
             parsedMovieData[i] = String.format("%s \n评分:%s 上映日期:%s\n内容简介:%s", title, vote, date, desc);
         }
-        System.out.println("movieData:\n" + TextUtils.join("\n", parsedMovieData));
         return parsedMovieData;
     }
 }

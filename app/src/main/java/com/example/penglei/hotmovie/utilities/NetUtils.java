@@ -32,16 +32,18 @@ public class NetUtils {
         }
         return null;
     }
+
     public static String getResponseFromUrl(URL url) throws IOException {
-        HttpURLConnection connection= (HttpURLConnection) url.openConnection();
+        System.out.println("start request: " + url);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         try {
-            InputStream inputStream=connection.getInputStream();
-            Scanner scanner=new Scanner(inputStream);
+            InputStream inputStream = connection.getInputStream();
+            Scanner scanner = new Scanner(inputStream);
             scanner.useDelimiter("\\A");
-            if (scanner.hasNext()){
-                  return scanner.next();
-            }else return null;
-        }finally {
+            if (scanner.hasNext()) {
+                return scanner.next();
+            } else return null;
+        } finally {
             connection.disconnect();
         }
     }
