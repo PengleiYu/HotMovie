@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HotMovie</string>
     <string name="error_message">An error has occurred.\nPlease try again by clicking REFRESH</string>
+    <string name="refresh">刷新</string>
+    <string name="settings">设置</string>
+    <string name="share">分享</string>
 </resources>

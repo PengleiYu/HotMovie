@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity
             invalidateData();
             getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
             return true;
+        } else if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

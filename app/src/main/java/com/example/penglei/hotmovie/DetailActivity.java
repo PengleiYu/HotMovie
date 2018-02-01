@@ -37,6 +37,15 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private Intent getSharedIntent() {
         /* 留意用法 */
         return ShareCompat.IntentBuilder.from(this)
