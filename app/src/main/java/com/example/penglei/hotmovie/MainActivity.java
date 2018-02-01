@@ -1,5 +1,6 @@
 package com.example.penglei.hotmovie;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.penglei.hotmovie.utilities.JsonUtil;
 import com.example.penglei.hotmovie.utilities.NetUtils;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
+    public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private RecyclerView mMovieDataView;
     private TextView mErrorView;
     private ProgressBar mLoadingView;
@@ -58,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(String movie) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(EXTRA_MOVIE, movie);
+        startActivity(intent);
+    }
+
     private void showErrorMessage() {
         mErrorView.setVisibility(View.VISIBLE);
         mMovieDataView.setVisibility(View.INVISIBLE);
@@ -71,11 +79,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private void loadData() {
         showMovieDataView();
         new MovieTask().execute();
-    }
-
-    @Override
-    public void onClick(String movie) {
-        Toast.makeText(this, movie, Toast.LENGTH_SHORT).show();
     }
 
     private class MovieTask extends AsyncTask<Void, Void, String[]> {
