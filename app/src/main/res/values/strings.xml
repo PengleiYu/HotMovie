@@ -9,24 +9,21 @@
     <!--用于偏好设置 -->
     <!-- - - - - - -->
 
-    <!--位置偏好的标签-->
-    <string name="pref_location_label">Location</string>
-    <!--位置偏好key-->
-    <string name="pref_location_key" translatable="false">location</string>
-    <!--位置偏好中默认值-->
-    <string name="pref_location_default" translatable="false">Beijing, China</string>
+    <!--排序偏好的标签-->
+    <string name="pref_order_label">排序依据</string>
+    <!--排序偏好的key-->
+    <string name="pref_order_key">order</string>
 
-    <!--温度单位偏好的标签-->
-    <string name="pref_units_label">Temperature Units</string>
-    <!--英制温度单位的标签-->
-    <string name="pref_units_label_imperial">Imperial</string>
-    <!--公制温度单位的标签-->
-    <string name="pref_units_label_metric">Metric</string>
-
-    <!--温度单位偏好的key-->
-    <string name="pref_units_key" translatable="false">units</string>
-    <!--温度单位偏好的值： 公制单位-->
-    <string name="pref_units_metric" translatable="false">metric</string>
-    <!--温度单位偏好的值： 英制单位-->
-    <string name="pref_units_imperial" translatable="false">imperial</string>
+    <!--排序偏好标签：热门-->
+    <string name="pref_order_label_hot_level">热门程度</string>
+    <!--排序偏好标签：评分降序-->
+    <string name="pref_order_label_vote_descend">评分降序</string>
+    <!--排序偏好标签：评分升序-->
+    <string name="pref_order_label_vote_ascend">评分升序</string>
+    <!--排序偏好值：热门-->
+    <string name="pref_order_value_hot_level" translatable="false">hot_level</string>
+    <!--排序偏好值：评分降序-->
+    <string name="pref_order_value_vote_descend" translatable="false">vote_descend</string>
+    <!--排序偏好值：评分升序-->
+    <string name="pref_order_value_vote_ascend" translatable="false">vote_ascend</string>
 </resources>

@@ -61,7 +61,7 @@ public class SettingFragment extends PreferenceFragmentCompat
             /* 找到要设置的值在值表中的位置；若不存在则不设置，即自动显示默认值 */
             int index = listPreference.findIndexOfValue(value);
             if (index >= 0) {
-                listPreference.setSummary(listPreference.getEntryValues()[index]);
+                listPreference.setSummary(listPreference.getEntries()[index]);
             }
         } else {
             preference.setSummary(value);

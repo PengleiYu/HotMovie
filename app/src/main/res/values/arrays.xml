@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="pref_units_options">
-        <item>@string/pref_units_label_imperial</item>
-        <item>@string/pref_units_label_metric</item>
+    <!--排序偏好的标签列表-->
+    <array name="pref_order_options">
+        <item>@string/pref_order_label_hot_level</item>
+        <item>@string/pref_order_label_vote_ascend</item>
+        <item>@string/pref_order_label_vote_descend</item>
     </array>
-    <array name="pref_units_values">
-        <item>@string/pref_units_imperial</item>
-        <item>@string/pref_units_metric</item>
+    <!--排序偏好的值列表-->
+    <array name="pref_order_values">
+        <item>@string/pref_order_value_hot_level</item>
+        <item>@string/pref_order_value_vote_ascend</item>
+        <item>@string/pref_order_value_vote_descend</item>
     </array>
 </resources>
