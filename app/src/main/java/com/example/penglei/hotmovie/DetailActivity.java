@@ -34,16 +34,8 @@ public class DetailActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_share);
         /* 第一次发现还有这操作 */
         item.setIntent(getSharedIntent());
+        menu.findItem(R.id.action_settings).setIntent(new Intent(this, SettingActivity.class));
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
-            startActivity(new Intent(this, SettingActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private Intent getSharedIntent() {

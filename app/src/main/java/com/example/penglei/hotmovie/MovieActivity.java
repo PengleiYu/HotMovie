@@ -64,6 +64,7 @@ public class MovieActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movie, menu);
+        menu.findItem(R.id.action_settings).setIntent(new Intent(this, SettingActivity.class));
         return true;
     }
 
@@ -72,9 +73,6 @@ public class MovieActivity extends AppCompatActivity
         if (item.getItemId() == R.id.action_refresh) {
             invalidateData();
             getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
-            return true;
-        } else if (item.getItemId() == R.id.action_settings) {
-            startActivity(new Intent(this, SettingActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
