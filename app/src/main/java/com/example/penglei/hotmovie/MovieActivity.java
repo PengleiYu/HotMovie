@@ -22,7 +22,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity
+public class MovieActivity extends AppCompatActivity
         implements MovieAdapter.MovieAdapterOnClickHandler, LoaderManager.LoaderCallbacks<String[]> {
     public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private static final int LOADER_ID = 1;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_movie);
         mErrorView = findViewById(R.id.tv_errorView_main);
         mLoadingView = findViewById(R.id.pb_loadingIndicator_main);
 

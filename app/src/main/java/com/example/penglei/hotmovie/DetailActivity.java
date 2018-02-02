@@ -22,8 +22,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         TextView textView = findViewById(R.id.tv_display_movie);
-        if (getIntent().hasExtra(MainActivity.EXTRA_MOVIE)) {
-            mMovie = getIntent().getStringExtra(MainActivity.EXTRA_MOVIE);
+        if (getIntent().hasExtra(MovieActivity.EXTRA_MOVIE)) {
+            mMovie = getIntent().getStringExtra(MovieActivity.EXTRA_MOVIE);
             textView.setText(mMovie);
         }
     }
