@@ -2,14 +2,12 @@
 <resources>
     <!--排序偏好的标签列表-->
     <array name="pref_order_options">
-        <item>@string/pref_order_label_hot_level</item>
-        <item>@string/pref_order_label_vote_ascend</item>
-        <item>@string/pref_order_label_vote_descend</item>
+        <item>@string/pref_order_label_popular</item>
+        <item>@string/pref_order_label_top_rated</item>
     </array>
     <!--排序偏好的值列表-->
     <array name="pref_order_values">
-        <item>@string/pref_order_value_hot_level</item>
-        <item>@string/pref_order_value_vote_ascend</item>
-        <item>@string/pref_order_value_vote_descend</item>
+        <item>@string/pref_order_value_popular</item>
+        <item>@string/pref_order_value_top_rated</item>
     </array>
 </resources>

@@ -15,15 +15,11 @@
     <string name="pref_order_key">order</string>
 
     <!--排序偏好标签：热门-->
-    <string name="pref_order_label_hot_level">热门程度</string>
-    <!--排序偏好标签：评分降序-->
-    <string name="pref_order_label_vote_descend">评分降序</string>
-    <!--排序偏好标签：评分升序-->
-    <string name="pref_order_label_vote_ascend">评分升序</string>
+    <string name="pref_order_label_popular">热门</string>
+    <!--排序偏好标签：高分-->
+    <string name="pref_order_label_top_rated">高评分</string>
     <!--排序偏好值：热门-->
-    <string name="pref_order_value_hot_level" translatable="false">hot_level</string>
-    <!--排序偏好值：评分降序-->
-    <string name="pref_order_value_vote_descend" translatable="false">vote_descend</string>
-    <!--排序偏好值：评分升序-->
-    <string name="pref_order_value_vote_ascend" translatable="false">vote_ascend</string>
+    <string name="pref_order_value_popular" translatable="false">popular</string>
+    <!--排序偏好值：高分-->
+    <string name="pref_order_value_top_rated" translatable="false">top_rated</string>
 </resources>
