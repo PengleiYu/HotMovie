@@ -4,4 +4,29 @@
     <string name="refresh">刷新</string>
     <string name="settings">设置</string>
     <string name="share">分享</string>
+
+    <!-- - - - - - -->
+    <!--用于偏好设置 -->
+    <!-- - - - - - -->
+
+    <!--位置偏好的标签-->
+    <string name="pref_location_label">Location</string>
+    <!--位置偏好key-->
+    <string name="pref_location_key" translatable="false">location</string>
+    <!--位置偏好中默认值-->
+    <string name="pref_location_default" translatable="false">Beijing, China</string>
+
+    <!--温度单位偏好的标签-->
+    <string name="pref_units_label">Temperature Units</string>
+    <!--英制温度单位的标签-->
+    <string name="pref_units_label_imperial">Imperial</string>
+    <!--公制温度单位的标签-->
+    <string name="pref_units_label_metric">Metric</string>
+
+    <!--温度单位偏好的key-->
+    <string name="pref_units_key" translatable="false">units</string>
+    <!--温度单位偏好的值： 公制单位-->
+    <string name="pref_units_metric" translatable="false">metric</string>
+    <!--温度单位偏好的值： 英制单位-->
+    <string name="pref_units_imperial" translatable="false">imperial</string>
 </resources>
