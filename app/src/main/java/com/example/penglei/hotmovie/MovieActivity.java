@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -85,6 +84,7 @@ public class MovieActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         if (PREFERENCE_HAVE_BEEN_UPDATED) {
+            invalidateData();
             getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
             PREFERENCE_HAVE_BEEN_UPDATED = false;
         }
@@ -134,7 +134,7 @@ public class MovieActivity extends AppCompatActivity
 
             @Override
             public String[] loadInBackground() {
-                URL url = NetUtils.buildUrl();
+                URL url = NetUtils.buildUrl(getContext());
                 try {
                     String response = NetUtils.getResponseFromUrl(url);
                     return JsonUtil.getSimpleMovieStringsFromJson(response);

@@ -1,7 +1,10 @@
 package com.example.penglei.hotmovie.utilities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+
+import com.example.penglei.hotmovie.data.MoviePreferences;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +24,10 @@ public class NetUtils {
     private static final String PARAM_API_KEY = "api_key";
 
     @Nullable
-    public static URL buildUrl() {
-        Uri uri = Uri.parse(POPULAR_URL).buildUpon()
+    public static URL buildUrl(Context context) {
+        String orderSegment = MoviePreferences.getMovieOrder(context);
+        Uri uri = Uri.parse(STATIC_MOVIE_URL).buildUpon()
+                .appendPath(orderSegment)
                 .appendQueryParameter(PARAM_API_KEY, API_KEY)
                 .build();
         try {
