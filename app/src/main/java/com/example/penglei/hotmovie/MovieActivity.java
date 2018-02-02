@@ -1,11 +1,14 @@
 package com.example.penglei.hotmovie;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -23,7 +26,9 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MovieActivity extends AppCompatActivity
-        implements MovieAdapter.MovieAdapterOnClickHandler, LoaderManager.LoaderCallbacks<String[]> {
+        implements MovieAdapter.MovieAdapterOnClickHandler,
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        LoaderManager.LoaderCallbacks<String[]> {
     public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private static final int LOADER_ID = 1;
 
@@ -31,6 +36,11 @@ public class MovieActivity extends AppCompatActivity
     private TextView mErrorView;
     private ProgressBar mLoadingView;
     private MovieAdapter mMovieAdapter;
+
+    /**
+     * 应当为static；精髓
+     */
+    private static boolean PREFERENCE_HAVE_BEEN_UPDATED = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,10 @@ public class MovieActivity extends AppCompatActivity
         mMovieDataView.setHasFixedSize(true);
         mMovieDataView.setAdapter(mMovieAdapter);
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+
+        /* onStart时注册 */
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -65,6 +79,22 @@ public class MovieActivity extends AppCompatActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (PREFERENCE_HAVE_BEEN_UPDATED) {
+            getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+            PREFERENCE_HAVE_BEEN_UPDATED = false;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     private void invalidateData() {
@@ -131,5 +161,12 @@ public class MovieActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(Loader<String[]> loader) { }
+    public void onLoaderReset(Loader<String[]> loader) {
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (getString(R.string.pref_order_key).equals(key))
+            PREFERENCE_HAVE_BEEN_UPDATED = true;
+    }
 }
