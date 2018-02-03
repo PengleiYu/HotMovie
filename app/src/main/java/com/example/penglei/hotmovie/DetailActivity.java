@@ -31,9 +31,8 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
-        MenuItem item = menu.findItem(R.id.action_share);
         /* 第一次发现还有这操作 */
-        item.setIntent(getSharedIntent());
+        menu.findItem(R.id.action_share).setIntent(getSharedIntent());
         menu.findItem(R.id.action_settings).setIntent(new Intent(this, SettingActivity.class));
         return true;
     }
