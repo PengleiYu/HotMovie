@@ -9,14 +9,20 @@ import org.json.JSONObject;
  */
 
 public class JsonUtil {
+    private static final String MOVIE_RESULT = "results";
+    private static final String MOVIE_ID = "id";
+    private static final String MOVIE_TITLE = "title";
+    private static final String MOVIE_POPULARITY = "popularity";
+    private static final String MOVIE_VOTE_AVERAGE = "vote_average";
+    private static final String MOVIE_VOTE_COUNT = "vote_count";
+    private static final String MOVIE_DESC = "overview";
+    private static final String MOVIE_POSTER_PATH = "poster_path";
+    private static final String MOVIE_BACKDROP_PATH = "backdrop_path";
+    private static final String MOVIE_DATE = "release_date";
+
     public static String[] getSimpleMovieStringsFromJson(String hotMovieJsonStr) throws JSONException {
-        final String MOVIE_LIST = "results";
-        final String MOVIE_VOTE = "vote_average";
-        final String MOVIE_TITLE = "title";
-        final String MOVIE_DESC = "overview";
-        final String MOVIE_DATE = "release_date";
         JSONObject movieObj = new JSONObject(hotMovieJsonStr);
-        JSONArray movieArray = movieObj.getJSONArray(MOVIE_LIST);
+        JSONArray movieArray = movieObj.getJSONArray(MOVIE_RESULT);
 
         String[] parsedMovieData = new String[movieArray.length()];
         for (int i = 0; i < movieArray.length(); i++) {
@@ -24,7 +30,7 @@ public class JsonUtil {
             JSONObject movie = movieArray.getJSONObject(i);
             title = movie.getString(MOVIE_TITLE);
             desc = movie.getString(MOVIE_DESC);
-            vote = movie.getString(MOVIE_VOTE);
+            vote = movie.getString(MOVIE_VOTE_AVERAGE);
             date = movie.getString(MOVIE_DATE);
             parsedMovieData[i] = String.format("%s \n评分:%s 上映日期:%s\n内容简介:%s", title, vote, date, desc);
         }
