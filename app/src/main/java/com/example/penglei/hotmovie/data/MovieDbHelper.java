@@ -23,18 +23,21 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table " + MovieEntry.TABLE_NAME + " (" +
                         MovieEntry._ID + " integer primary key autoincrement, " +
-                        MovieEntry.COLUMN_MOVIE_ID + " integer, " +
-                        MovieEntry.COLUMN_TITLE + " text, " +
-                        MovieEntry.COLUMN_POPULARITY + " integer, " +
-                        MovieEntry.COLUMN_VOTE_AVERAGE + " integer, " +
-                        MovieEntry.COLUMN_VOTE_COUNT + " integer, " +
-                        MovieEntry.COLUMN_OVERVIEW + " text, " +
-                        MovieEntry.COLUMN_BACKDROP_PATH + " text, " +
-                        MovieEntry.COLUMN_POSTER_PATH + " text, " +
-                        MovieEntry.COLUMN_RELEASE_DATE + " integer " + ")"
+                        MovieEntry.COLUMN_MOVIE_ID + " integer not null, " +
+                        MovieEntry.COLUMN_TITLE + " text not null, " +
+                        MovieEntry.COLUMN_POPULARITY + " integer not null, " +
+                        MovieEntry.COLUMN_VOTE_AVERAGE + " integer not null, " +
+                        MovieEntry.COLUMN_VOTE_COUNT + " integer not null, " +
+                        MovieEntry.COLUMN_OVERVIEW + " text not null, " +
+                        MovieEntry.COLUMN_BACKDROP_PATH + " text not null, " +
+                        MovieEntry.COLUMN_POSTER_PATH + " text not null, " +
+                        MovieEntry.COLUMN_RELEASE_DATE + " integer not null" + ")"
         );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table if exists " + MovieEntry.TABLE_NAME);
+        onCreate(db);
+    }
 }
