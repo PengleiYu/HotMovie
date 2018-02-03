@@ -18,5 +18,9 @@ public class MovieContract {
         public static final String COLUMN_POSTER_PATH = "poster_path";
         public static final String COLUMN_BACKDROP_PATH = "backdrop_path";
         public static final String COLUMN_RELEASE_DATE = "release_date";
+        /**
+         * 录入数据库的时间
+         */
+        public static final String COLUMN_RECORD_DATE = "record_date";
     }
 }

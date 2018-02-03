@@ -25,13 +25,16 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                         MovieEntry._ID + " integer primary key autoincrement, " +
                         MovieEntry.COLUMN_MOVIE_ID + " integer not null, " +
                         MovieEntry.COLUMN_TITLE + " text not null, " +
+                        MovieEntry.COLUMN_RECORD_DATE + " integer not null, " +
                         MovieEntry.COLUMN_POPULARITY + " integer not null, " +
                         MovieEntry.COLUMN_VOTE_AVERAGE + " integer not null, " +
                         MovieEntry.COLUMN_VOTE_COUNT + " integer not null, " +
                         MovieEntry.COLUMN_OVERVIEW + " text not null, " +
                         MovieEntry.COLUMN_BACKDROP_PATH + " text not null, " +
                         MovieEntry.COLUMN_POSTER_PATH + " text not null, " +
-                        MovieEntry.COLUMN_RELEASE_DATE + " integer not null" + ")"
+                        MovieEntry.COLUMN_RELEASE_DATE + " integer not null, " +
+                        " unique (" + MovieEntry.COLUMN_RECORD_DATE + ") on conflict replace " +
+                        ")"
         );
     }
 
