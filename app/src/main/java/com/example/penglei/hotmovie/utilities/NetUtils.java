@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.example.penglei.hotmovie.data.ApiKey;
 import com.example.penglei.hotmovie.data.MoviePreferences;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.Scanner;
  */
 
 public class NetUtils {
-    private static final String API_KEY = "02dfef023bf0bd258e9fc6f06b0a8e5d";
+    private static final String API_KEY = ApiKey.KEY;
     private static final String STATIC_MOVIE_URL = "http://api.themoviedb.org/3/movie";
     private static final String POPULAR_URL = STATIC_MOVIE_URL + "/popular";
     private static final String PARAM_API_KEY = "api_key";
